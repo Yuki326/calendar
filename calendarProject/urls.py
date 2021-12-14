@@ -41,5 +41,5 @@ urlpatterns = [
     path('accounts/login/', TemplateView.as_view(template_name = 'login.html'), name='login'),
     path('app/', include('calendarSite.urls')),
     path('subject_manage', views.subject_manage, name = "subject_manage"),
-
+    path('createSchedule/<int:num>', views.createSchedule, name = "createSchedule"),
 ]

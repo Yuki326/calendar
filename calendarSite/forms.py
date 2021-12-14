@@ -4,7 +4,7 @@
 from django.core.files.storage import default_storage
 from django import forms
 
-from calendarSite.models import Task
+from calendarSite.models import Subject_Schedule, Task
 from calendarSite.models import Subject
 
 class addDataForm(forms.Form):
@@ -74,6 +74,13 @@ class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
         fields = ['name']
+
+
+class ScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Subject_Schedule
+        fields = ['subject_id','week','period']
+
 
 class TaskForm(forms.ModelForm):
     class Meta:

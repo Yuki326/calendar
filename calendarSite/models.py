@@ -21,10 +21,11 @@ class Subject(models.Model):
     def __str__(self):#表示を決める部分
         return self.name
 
+
 class Subject_Schedule(models.Model):#履修登録時に表から選ぶ操作をさせるために必要
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
     week = models.CharField(max_length=100)
-    period = models.IntegerField()
+    period = models.CharField(max_length=100)
 
 class Task(models.Model):
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)#科目テーブルと紐づけ

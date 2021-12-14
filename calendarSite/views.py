@@ -9,6 +9,8 @@ from calendarSite.models import Calendar
 from calendarSite.models import Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
+from calendarSite.models import Subject_Schedule
+from calendarSite.forms import ScheduleForm
 from calendarSite.forms import subject_manageForm
 #以下メール用
 import pandas as pd
@@ -394,3 +396,29 @@ class SubjectView(ListView):
 class TaskDetailView(DetailView):
    model = Task
    template_name = "taskDetail.html"
+
+def createSchedule(request,num):  
+   if(request.method == 'POST'):
+      obj= Subject_Schedule()
+      schedule = ScheduleForm(request.POST,instance=obj)
+      schedule.save()
+      return redirect(to = 'index')
+   initial_dict={
+      'subject_id':str(num)
+   }
+   WEEK_CHOICES = (
+    (0, 'SUN'),
+    (1, 'MON'),
+    (2, 'TUE'),
+    (3, 'WED'),
+    (4, 'THU'),
+    (5, 'FRI'),
+    (6, 'SAT'),
+   )
+   params = {
+      'title' : '開講日程の追加',
+      'form' : ScheduleForm(initial=initial_dict),
+      'schedule_list':Subject_Schedule.objects.all(),
+      'subject_id':num,
+   }
+   return render(request,'createSchedule.html',params)
